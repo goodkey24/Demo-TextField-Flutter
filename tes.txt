@@ -1,0 +1,35 @@
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: const Text('Latihan TextField'),
+    ),
+    body: Column(children: [
+      TextField(
+        decoration: InputDecoration(hintText: "Masukkan Panjang"),
+        onChanged: (String value) {
+          setState(() {
+            panjang = double.parse(value);
+          });
+        },
+      ),
+      TextField(
+        decoration: InputDecoration(hintText: "Masukkan Lebar"),
+        onChanged: (String value) {
+          setState(() {
+            lebar = double.parse(value);
+          });
+        },
+      ),
+      RaisedButton(
+        onPressed: () {
+          setState(() {
+            luas = panjang * lebar;
+          });
+        },
+        child: Text("Hitung Luas"),
+      ),
+      Text("Luas Persegi Panjang: $luas")
+    ]),
+  );
+}
