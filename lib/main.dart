@@ -1,7 +1,10 @@
+// ignore_for_file: unnecessary_this, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
+// ignore: use_key_in_widget_constructors
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -16,6 +19,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// ignore: use_key_in_widget_constructors
 class Home extends StatefulWidget {
   @override
   HomeState createState() => HomeState();
@@ -28,7 +32,8 @@ class HomeState extends State<Home> {
 
   void onPressed() {
     setState(() {
-      if (this.firstName.trim().length == 0 || this.lastName.trim().length == 0)
+      if (this.firstName.trim().isEmpty || this.lastName.trim().isEmpty)
+        // ignore: curly_braces_in_flow_control_structures
         return;
       this.fullName = 'Hai ${this.firstName} ${this.lastName}, apa kabar?';
     });
