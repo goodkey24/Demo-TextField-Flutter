@@ -1,86 +1,91 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Latihan Textfield',
+      title: 'Demo Flutter',
       theme: ThemeData(
-        primarySwatch: Colors.lightGreen,
+        primarySwatch: Colors.blue,
       ),
-      home: const Home(),
+      home: Home(),
     );
   }
 }
 
 class Home extends StatefulWidget {
-  const Home({Key key}) : super(key: key);
   @override
   HomeState createState() => HomeState();
 }
 
 class HomeState extends State<Home> {
-  // Menghitung Luas Persegi Panjang
-  String fistName;
-  String lastName;
-  String fullName;
+  String firstName = '';
+  String lastName = '';
+  String fullName = '';
 
   void onPressed() {
-    if (fistName.isEmpty || lastName.isEmpty) {
-      return;
-    } else {
-      fullName = 'Nama Lengkap : $fistName " " $lastName';
-    }
+    setState(() {
+      if (this.firstName.trim().length == 0 || this.lastName.trim().length == 0)
+        return;
+      this.fullName = 'Hai ${this.firstName} ${this.lastName}, apa kabar?';
+    });
   }
 
-  void onChangeFirstName(String value) {
-    setState(
-      () {
-        fistName = value;
-      },
-    );
+  void onChangedFirstName(String value) {
+    setState(() {
+      this.firstName = value;
+    });
   }
 
-  void onChangeLastName(String value) {
-    setState(
-      () {
-        lastName = value;
-      },
-    );
+  void onChangedLastName(String value) {
+    setState(() {
+      this.lastName = value;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Latihan TextField'),
+        title: Text('Demo TextField'),
       ),
-      // === Body ===
-      body: Column(children: [
-        TextField(
-          decoration: const InputDecoration(hintText: "Masukkan Nama Depan"),
-          onChanged: (String value) {
-            onChangeFirstName(value);
-          },
-        ),
-        TextField(
-          decoration: const InputDecoration(hintText: "Masukkan Nama Belakang"),
-          onChanged: (String value) {
-            onChangeLastName(value);
-          },
-        ),
-        ElevatedButton(
-          onPressed: () {
-            onPressed();
-          },
-          child: const Text('Hasil'),
-        ),
-        Container(height: 50.0),
-        Text(fullName.toString())
-      ]),
+      body: Column(
+        children: <Widget>[
+          TextField(
+            onChanged: (String value) {
+              onChangedFirstName(value);
+            },
+            decoration: InputDecoration(
+                hintText: 'Ketik nama depan',
+                hintStyle: TextStyle(
+                  fontStyle: FontStyle.normal,
+                )),
+          ),
+          TextField(
+            onChanged: (String value) {
+              onChangedLastName(value);
+            },
+            decoration: InputDecoration(
+                hintText: 'Ketik nama belakang',
+                hintStyle: TextStyle(
+                  fontStyle: FontStyle.normal,
+                )),
+          ),
+          ElevatedButton(
+            child: Text('Klik'),
+            onPressed: () {
+              onPressed();
+            },
+          ),
+          Container(
+            height: 15.0,
+          ),
+          Text(this.fullName),
+        ],
+      ),
     );
   }
 }
